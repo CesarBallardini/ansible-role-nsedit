@@ -18,14 +18,14 @@
 
     - name: Check that you can connect (GET) to a page and it returns a status 200
       uri:
-        url: http://192.168.33.10
+        url: http://127.0.0.1
         follow_redirects: none
         status_code: 301
 
 
     - name: Check that you can login with default credentials
       uri:
-        url: https://192.168.33.10/index.php
+        url: https://127.0.0.1/index.php
         validate_certs: false
         follow_redirects: all
         return_content: true

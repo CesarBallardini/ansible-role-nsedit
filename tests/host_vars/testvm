@@ -6,15 +6,15 @@
   pdns_config:
     master: true
     slave: false
-    local-address: '192.168.44.10'
+    local-address: '127.0.0.1'
     # API Configuration
     api: yes
     api-key: "powerdns"
     # Embedded webserver
     webserver: yes
-    webserver-address: "192.168.33.10"
+    webserver-address: "127.0.0.1"
     webserver-port: "8001"
-    webserver-allow-from: "192.168.33.10"
+    webserver-allow-from: "127.0.0.1"
   pdns_backends:
     gsqlite3:
       database: "{{ database_name }}"
@@ -26,7 +26,7 @@
   # PowerDNS config needed by nsedit
   #
   powerdns_api_key: 'powerdns'
-  powerdns_api_ip: '192.168.33.10'
+  powerdns_api_ip: '127.0.0.1'
   powerdns_api_port: '8001'
   powerdns_api_proto: 'http'
   nsedit_authdb: "/usr/local/etc/nsedit/pdns.users.sqlite3"
@@ -36,7 +36,7 @@
   #
   nginx_vhosts:
     - listen: "443 ssl http2"
-      server_name: "192.168.33.10"
+      server_name: "127.0.0.1"
       #server_name_redirect: "www.example.com"
       root: "/var/www/nsedit.infra.ballardini.com.ar/nsedit"
       index: "index.php index.html index.htm"
@@ -65,7 +65,7 @@
         ssl_protocols       TLSv1.1 TLSv1.2;
         ssl_ciphers         HIGH:!aNULL:!MD5;
     - listen: "80"
-      server_name: "192.168.33.10"
-      return: "301 https://192.168.33.10$request_uri"
+      server_name: "127.0.0.1"
+      return: "301 https://127.0.0.1$request_uri"
       filename: "nsedit.infra.ballardini.com.ar.80.com.ar.conf"
 
