@@ -1,13 +1,13 @@
 ---
 - name: install role
-  hosts: all
+  hosts: localhost
   become: yes
 
   roles:
     - role: '../..'
 
 - name: test role
-  hosts: all
+  hosts: localhost
   become: yes
 
   tasks:
