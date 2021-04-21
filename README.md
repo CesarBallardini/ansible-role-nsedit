@@ -6,10 +6,6 @@ Installs nsedit on PowerDNS master node.
 Requirements
 ------------
 
-```bash
-ansible-galaxy install -r requirements.yml --roles-path=provision/tests/roles/
-```
-
 FIXME
 
 Role Variables
