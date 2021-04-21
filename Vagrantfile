@@ -27,8 +27,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
  config.vm.define HOSTNAME do |srv|
 
-    srv.vm.box = "debian/buster64"
-    #srv.vm.box = "ubuntu/focal64"
+    #srv.vm.box = "debian/buster64"
+    srv.vm.box = "ubuntu/focal64"
     srv.vm.network "private_network", ip: "192.168.33.10"
     srv.vm.boot_timeout = 3600
     srv.vm.box_check_update = false

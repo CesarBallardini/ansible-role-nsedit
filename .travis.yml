@@ -19,7 +19,7 @@ install:
   - sudo -H python3 -m pip install --upgrade ansible
   # Add ansible.cfg to pick up roles path.
   - "printf '[defaults]\ngathering = smart\nroles_path = roles/' > ansible.cfg"
-  - "ansible-galaxy install -r vagrant-inventory/requirements.yml --roles-path=provision/tests/roles/"
+  - "ansible-galaxy install -r vagrant-inventory/requirements.yml --roles-path=roles/"
 
 script:
   # Check the role/playbook's syntax.
