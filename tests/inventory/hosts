@@ -1,0 +1,16 @@
+# travis inventory
+
+localhost ansible_connection=local
+testvm    ansible_connection=local
+#testvm    ansible_host=127.0.0.1  ansible_user=vagrant ansible_password=vagrant ansible_sudo_password=vagrant
+
+[python3]
+localhost
+testvm
+
+[python3:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+
+
+

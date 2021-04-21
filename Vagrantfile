@@ -77,17 +77,36 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           export APT_OPTIONS=' -y --allow-downgrades --allow-remove-essential --allow-change-held-packages -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold '
 
           sudo apt-get install python3-pip ${APT_OPTIONS}
-          sudo -H python3 -m pip install pip setuptools wheel
-          sudo -H python3 -m pip install ansible
+          sudo apt-get install python3-testresources ${APT_OPTIONS} # https://gist.github.com/y56/0540d22a1db40dacc7fbbb93c866821e
+
+          sudo -H python3 -m pip install --upgrade pip setuptools wheel
+          sudo -H python3 -m pip install --upgrade ansible
 
         SHELL
     end
 
-    config.vm.provision "ansible-provision", type: :ansible, run: "never" do |ansible|
+    config.vm.provision "ansible-vm", type: :ansible, run: "never" do |ansible|
 
       ansible.playbook       = "./tests/test.yml"
       ansible.inventory_path = "./vagrant-inventory/"
       ansible.config_file    = "./vagrant-inventory/ansible.cfg"
+      ansible.verbose        = "-v"
+      ansible.become         = true
+
+      ansible.extra_vars = {
+        all_proxy:   ENV['all_proxy']   || ENV['http_proxy']  || "",
+        http_proxy:  ENV['http_proxy']  || "",
+        https_proxy: ENV['https_proxy'] || "",
+        ftp_proxy:   ENV['ftp_proxy']   || "",
+        no_proxy:    ENV['no_proxy']    || "",
+      }
+    end
+
+    config.vm.provision "ansible-travis", type: :ansible_local, run: "never" do |ansible|
+
+      ansible.playbook       = "./tests/test.yml"
+      ansible.inventory_path = "./tests/inventory/"
+      ansible.config_file    = "./tests/ansible.cfg"
       ansible.verbose        = "-v"
       ansible.become         = true
 
