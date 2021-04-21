@@ -1,10 +1,19 @@
 Ansible Role: nsedit
 =========
 
+[![Build Status](https://travis-ci.com/CesarBallardini/ansible-role-nsedit.svg?branch=main)](https://travis-ci.com/CesarBallardini/ansible-role-nsedit)
+
+
 Installs nsedit on PowerDNS master node.
 
 Requirements
 ------------
+
+For testing: 
+
+```bash
+ansible-galaxy install -r vagrant-inventory/requirements.yml --roles-path=provision/tests/roles/ 
+```
 
 FIXME
 
