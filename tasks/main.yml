@@ -10,7 +10,7 @@
   file:
     dest: /var/www/nsedit.infra.ballardini.com.ar
     state: directory
-    owner: vagrant
+    owner: root
     group: www-data
   become: true
 
@@ -40,6 +40,7 @@
     dest: /var/www/nsedit.infra.ballardini.com.ar/nsedit
     version: 'tags/v1.0'
   when: not reg_nsedit_existe_config.stat.exists
+  become: true
 
 - name: nsedit config file
   template:
