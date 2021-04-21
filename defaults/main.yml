@@ -1,0 +1,17 @@
+---
+
+php_version: '7.4'
+php_memory_limit: "512M"
+php_webserver_daemon: "nginx"
+
+nginx_user: "www-data"
+nginx_remove_default_vhost: true
+nginx_vhosts: []
+
+powerdns_api_key: 'powerdns'
+powerdns_api_ip: '127.0.0.1'
+powerdns_api_port: '8081'
+powerdns_api_proto: 'http'
+nsedit_authdb: "../etc/pdns.users.sqlite3"
+
+

@@ -1,0 +1,49 @@
+---
+
+- name: instala snake oil certificates
+  apt:
+    name: ssl-cert
+    state: present
+  become: true
+
+- name: directorio para instalar nsedit
+  file:
+    dest: /var/www/nsedit.infra.ballardini.com.ar
+    state: directory
+    owner: vagrant
+    group: www-data
+  become: true
+
+- name: directorio para secretos de nsedit
+  file:
+    dest: /usr/local/etc/nsedit/
+    state: directory
+    owner: www-data
+    group: www-data
+  become: true
+
+- name: instala git
+  apt:
+    name: git
+    state: present
+  become: true
+
+- name: verifica que existe instalacion previa configurada
+  stat:
+    path: /var/www/nsedit.infra.ballardini.com.ar/nsedit/includes/config.inc.php
+  become: true
+  register: reg_nsedit_existe_config
+
+- name: Git checkout
+  ansible.builtin.git:
+    repo: 'https://github.com/tuxis-ie/nsedit.git'
+    dest: /var/www/nsedit.infra.ballardini.com.ar/nsedit
+    version: 'tags/v1.0'
+  when: not reg_nsedit_existe_config.stat.exists
+
+- name: nsedit config file
+  template:
+    src: config.inc.php.j2
+    dest: /var/www/nsedit.infra.ballardini.com.ar/nsedit/includes/config.inc.php
+  become: true
+

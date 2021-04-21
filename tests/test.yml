@@ -1,0 +1,43 @@
+---
+- name: install role
+  hosts: all
+  become: yes
+
+  roles:
+    - role: '../..'
+
+- name: test role
+  hosts: all
+  become: yes
+
+  tasks:
+
+#    - name: restart nginx
+#      service: name=nginx state=restarted
+#      become: true
+
+    - name: Check that you can connect (GET) to a page and it returns a status 200
+      uri:
+        url: http://192.168.33.10
+        follow_redirects: none
+        status_code: 301
+
+
+    - name: Check that you can login with default credentials
+      uri:
+        url: https://192.168.33.10/index.php
+        validate_certs: false
+        follow_redirects: all
+        return_content: true
+        force_basic_auth: true
+        method: POST
+        body_format: form-urlencoded
+        body:
+          username: admin
+          password: admin
+          formname: loginform
+          submit: si
+        status_code: 200
+      register: this
+      failed_when: "'Master/Native Zones' not in this.content"
+
